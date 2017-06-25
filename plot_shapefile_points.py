@@ -20,6 +20,8 @@ for i in range(len(parts)-1):
 points_X = []
 points_Y = []
 
+manhattan = shape(shp.shape(recordDict["Manhattan"]))
+
 for line in gzip.open(sys.argv[1]):
     try:
         tweet = eval(line.strip())
@@ -32,7 +34,7 @@ for line in gzip.open(sys.argv[1]):
         		bbox = shape(tweet["place"]["bounding_box"])
         		point = bbox.centroid
 
-        if point is not None:
+        if point is not None and manhattan.contains(point):
         	points_X.append(point.x)
         	points_Y.append(point.y)
     except:
